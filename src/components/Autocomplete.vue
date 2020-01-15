@@ -71,6 +71,15 @@ export default {
      *   `Function` received typed input, and must return a string; to be used as a url
      *   `Array` and `Object` (see `results-property`) are used directly
      */
+
+    /**
+     * A delay property. (optional)
+     */
+    delay: {
+      type: [Number],
+      required: false,
+      default: 200
+    },
     source: {
       type: [String, Function, Array, Object],
       required: true
@@ -266,7 +275,7 @@ export default {
       this.loading = true
       this.setEventListener()
       this.request(url)
-    }, 200),
+    }, this.delay),
 
     /**
      * Make an http request for results
