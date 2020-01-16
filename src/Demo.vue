@@ -14,6 +14,7 @@
           source="https://api.github.com/search/repositories?q="
           results-property="items"
           results-display="full_name"
+          delay-search="1000"
           @selected="setXHRValue"
           @clear="setXHRValue({})">
         </autocomplete>

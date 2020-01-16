@@ -238,9 +238,16 @@ export default {
   },
   methods: {
     /**
-     * Search wrapper method
+     * Search wrapper method that emits an event for the real search with debounce
      */
     search () {
+      this.$emit('search', this.delay)
+    },
+
+    /**
+     * This method is called by the event inside mounted lch for the debounce propouse
+     */
+    searchEmitted () {
       this.selectedIndex = null
       switch (true) {
         case typeof this.source === 'string':
@@ -264,10 +271,10 @@ export default {
     },
 
     /**
-     * Debounce the typed search query before making http requests
+     * Search query before making http requests
      * @param {String} url
      */
-    resourceSearch: debounce(function (url) {
+    resourceSearch (url) {
       if (!this.display) {
         this.results = []
         return
@@ -275,7 +282,7 @@ export default {
       this.loading = true
       this.setEventListener()
       this.request(url)
-    }, this.delay),
+    },
 
     /**
      * Make an http request for results
@@ -533,6 +540,8 @@ export default {
     }
   },
   mounted () {
+    this.$on('search', debounce(this.searchEmitted, this.delay))
+
     this.value = this.initialValue
     this.display = this.initialDisplay
     this.selectedDisplay = this.initialDisplay
