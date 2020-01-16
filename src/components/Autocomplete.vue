@@ -202,7 +202,8 @@ export default {
       error: null,
       selectedId: null,
       selectedDisplay: null,
-      eventListener: false
+      eventListener: false,
+      lastRequest: null
     }
   },
   computed: {
@@ -279,7 +280,6 @@ export default {
         this.results = []
         return
       }
-      this.loading = true
       this.setEventListener()
       this.request(url)
     },
@@ -289,12 +289,21 @@ export default {
      * @param {String} url
      */
     request (url) {
-      let promise = fetch(url, {
+      if (this.lastRequest) {
+        this.lastRequest.abort()
+      }
+
+      // eslint-disable-next-line no-undef
+      this.lastRequest = new AbortController()
+      const signal = this.lastRequest.signal
+
+      let promise = fetch(url, {signal}, {
         method: this.method,
         credentials: this.getCredentials(),
         headers: this.getHeaders()
       })
 
+      this.loading = true
       return promise
         .then(response => {
           if (response.ok) {
@@ -306,10 +315,10 @@ export default {
         .then(response => {
           this.results = this.setResults(response)
           this.emitRequestResultEvent()
-          this.loading = false
         })
         .catch(error => {
           this.error = error.message
+        }).then(() => {
           this.loading = false
         })
     },

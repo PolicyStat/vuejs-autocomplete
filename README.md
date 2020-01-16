@@ -124,3 +124,9 @@ methods: {
 | firstResult | list item placed before all results |
 | lastResult  | list item placed at the end of the results |
 | noResults   | list item shown when no results are present |
+
+## Available Slots
+...
+
+## Features added
+Abort last request and debounce with delay prop 
