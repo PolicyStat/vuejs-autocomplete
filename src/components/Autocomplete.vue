@@ -202,7 +202,8 @@ export default {
       error: null,
       selectedId: null,
       selectedDisplay: null,
-      eventListener: false
+      eventListener: false,
+      lastRequest: null
     }
   },
   computed: {
@@ -289,7 +290,15 @@ export default {
      * @param {String} url
      */
     request (url) {
-      let promise = fetch(url, {
+      if (this.lastRequest) {
+        this.lastRequest.abort()
+      }
+
+      // eslint-disable-next-line no-undef
+      this.lastRequest = new AbortController()
+      const signal = this.lastRequest.signal
+
+      let promise = fetch(url, {signal}, {
         method: this.method,
         credentials: this.getCredentials(),
         headers: this.getHeaders()
@@ -299,6 +308,7 @@ export default {
         .then(response => {
           if (response.ok) {
             this.error = null
+            this.lastRequest = null
             return response.json()
           }
           throw new Error('Network response was not ok.')
@@ -311,6 +321,7 @@ export default {
         .catch(error => {
           this.error = error.message
           this.loading = false
+          this.lastRequest = null
         })
     },
 
