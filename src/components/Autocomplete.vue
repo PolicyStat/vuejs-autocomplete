@@ -80,6 +80,14 @@ export default {
       required: false,
       default: 200
     },
+    /**
+     * A property to trigger the search if it's bigger then the input length. (optional)
+     */
+    minLengthTrigger: {
+      type: [Number],
+      required: false,
+      default: 0
+    },
     source: {
       type: [String, Function, Array, Object],
       required: true
@@ -242,7 +250,9 @@ export default {
      * Search wrapper method that emits an event for the real search with debounce
      */
     search () {
-      this.$emit('search', this.delay)
+      if (this.display.length >= this.minLengthTrigger) {
+        this.$emit('search', this.delay)
+      }
     },
 
     /**

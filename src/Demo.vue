@@ -12,6 +12,7 @@
         <h5>Example string source</h5>
         <autocomplete
           source="https://api.github.com/search/repositories?q="
+          min-length-trigger="3"
           results-property="items"
           results-display="full_name"
           delay-search="1000"
