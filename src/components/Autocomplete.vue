@@ -3,7 +3,7 @@
     <div class="autocomplete__box" :class="{'autocomplete__searching' : showResults}">
 
       <img v-if="!isLoading" class="autocomplete__icon" src="../assets/search.svg">
-      <img v-else class="autocomplete__icon animate-spin" src="../assets/loading.svg">
+      <img v-else class="autocomplete__icon" src="../assets/ajax-loader.gif">
 
       <div class="autocomplete__inputs">
         <input
@@ -12,6 +12,7 @@
           :disabled="disableInput"
           :maxlength="maxlength"
           :class="inputClass"
+          class="input-vue-js-autocomplete"
           @click="search"
           @input="search"
           @keydown.enter="enter"
@@ -63,6 +64,8 @@
 
 <script type="text/babel">
 import debounce from 'lodash/debounce'
+import 'abortcontroller-polyfill'
+
 export default {
   props: {
     /**
@@ -559,6 +562,10 @@ export default {
 </script>
 
 <style lang="stylus">
+.input-vue-js-autocomplete::-ms-clear {
+  display: none;
+}
+
 .autocomplete
   position relative
   width 100%
