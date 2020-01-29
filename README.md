@@ -129,4 +129,4 @@ methods: {
 ...
 
 ## Features added
-Abort last request and debounce with delay prop 
+Abort last request and debounce with delay prop. A polyfill was used for IE 11
