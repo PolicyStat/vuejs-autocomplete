@@ -313,8 +313,10 @@ export default {
             this.error = null
             return response.json()
           } else if (response.status === 401) {
-            this.$emit('unautherror', response)
-            throw new Error('Session Timed Out. Please login.')
+            let error = new Error('Session timed out. Please login.')
+            error.response = response
+            this.$emit('unautherror', error)
+            throw error
           } else {
             throw new Error('Network response was not ok.')
           }

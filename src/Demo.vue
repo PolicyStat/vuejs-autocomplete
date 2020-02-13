@@ -220,8 +220,11 @@ export default {
     }
   },
   methods: {
-    handleError (response) {
-      console.log(response)
+    handleError (error) {
+      console.log(error)
+      console.log(error.response)
+      console.log(error.response.status)
+      console.log(error.message)
     },
     urlFunction (input) {
       return 'https://api.github.com/search/repositories?q=' + input
