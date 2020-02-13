@@ -312,8 +312,12 @@ export default {
           if (response.ok) {
             this.error = null
             return response.json()
+          } else if (response.status === 401) {
+            this.$emit('unautherror', response)
+            throw new Error('Session Timed Out. Please login.')
+          } else {
+            throw new Error('Network response was not ok.')
           }
-          throw new Error('Network response was not ok.')
         })
         .then(response => {
           this.results = this.setResults(response)

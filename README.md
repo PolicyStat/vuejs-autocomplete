@@ -116,6 +116,7 @@ methods: {
 | close    |                | When the options list is closed |
 | enter    | String         | Emits the input value when enter is pressed |
 | nothingSelected | String  | Emits the input value when enter is pressed and nothing was selected |
+| unautherror | Object  | When 401 status is returned, emits the response object |
 
 ## Available Slots
 

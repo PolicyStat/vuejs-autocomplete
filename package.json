@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/charliekassel/vuejs-autocomplete"
+    "url": "git+https://github.com/charliekassel/vuejs-autocomplete.git"
   },
   "bugs": {
     "url": "https://github.com/charliekassel/vuejs-autocomplete/issues"
@@ -105,5 +105,9 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "homepage": "https://github.com/charliekassel/vuejs-autocomplete#readme",
+  "directories": {
+    "test": "test"
+  }
 }

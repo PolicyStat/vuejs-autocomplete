@@ -11,17 +11,18 @@
       <div class="example">
         <h5>Example string source</h5>
         <autocomplete
-          source="https://api.github.com/search/repositories?q="
+          source="http://httpstat.us/401?"
           results-property="items"
           results-display="full_name"
           delay-search="1000"
           @selected="setXHRValue"
+          @unautherror="handleError($event)"
           @clear="setXHRValue({})">
         </autocomplete>
 
         <code>
     &lt;autocomplete
-      source="https://api.github.com/search/repositories?q="
+      source="httpstat.us/401"
       results-property="items"
       results-display="full_name"&gt;
     &lt;/autocomplete&gt;
@@ -219,6 +220,9 @@ export default {
     }
   },
   methods: {
+    handleError (response) {
+      console.log(response)
+    },
     urlFunction (input) {
       return 'https://api.github.com/search/repositories?q=' + input
     },
